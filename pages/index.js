@@ -2,7 +2,7 @@ import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
-import styles from "../styles/Home.module.css";
+import { BsCardImage } from "react-icons/Bs";
 
 export default function Home() {
   const [activeLink, setActiveLink] = useState("All Work");
@@ -51,7 +51,7 @@ export default function Home() {
         </div>
       </div>
 
-      <div className="thisisnav">
+      <div className="thisisnav mb-8 overflow-auto whitespace-nowrap sm:mb-11">
         <ul className="flex items-center">
           <li
             className={`navlink mr-3 ${
@@ -79,6 +79,97 @@ export default function Home() {
           </li>
         </ul>
       </div>
+
+      <div className="thisiswork grid grid-cols-1 gap-y-10 gap-x-8 mb-60 sm:grid-cols-2 md:grid-cols-3">
+        <div className="thisiscard flex flex-col">
+          <div className="bg-secondary w-full h-full aspect-square rounded-[20px] flex justify-center items-center relative mb-4">
+            <BsCardImage size={48} />
+          </div>
+          <div className="flex flex-col-reverse justify-between lg:flex-row">
+            <div className="lg:max-w-[75%]">
+              <h3 className="text-2xl mb-[6px]">Alcoholic Vodka</h3>
+              <p className="text-tertiary">
+                Redesign of pricing, paywalls and user account. Lorem ipsum,
+                dolor sit amet consectetur adipisicing elit. Dolorem, placeat
+              </p>
+            </div>
+            <div className="mb-2">
+              <h4 className="px-[10px] py-[5px] rounded-xl bg-[#DAA6FF] font-bold inline-block">
+                Development
+              </h4>
+            </div>
+          </div>
+        </div>
+        <div className="thisiscard flex flex-col">
+          <div className="bg-secondary w-full h-full aspect-square rounded-[20px] flex justify-center items-center relative mb-4">
+            <BsCardImage size={48} />
+          </div>
+          <div className="flex flex-col-reverse justify-between lg:flex-row">
+            <div className="lg:max-w-[75%]">
+              <h3 className="text-2xl mb-[6px]">Alcoholic Vodka</h3>
+              <p className="text-tertiary">
+                Redesign of pricing, paywalls and user account. Lorem ipsum,
+                dolor sit amet consectetur adipisicing elit. Dolorem, placeat
+              </p>
+            </div>
+            <div className="mb-2">
+              <h4 className="px-[10px] py-[5px] rounded-xl bg-[#DAA6FF] font-bold inline-block">
+                Development
+              </h4>
+            </div>
+          </div>
+        </div>
+        <div className="thisiscard flex flex-col">
+          <div className="bg-secondary w-full h-full aspect-square rounded-[20px] flex justify-center items-center relative mb-4">
+            <BsCardImage size={48} />
+          </div>
+          <div className="flex flex-col-reverse justify-between lg:flex-row">
+            <div className="lg:max-w-[75%]">
+              <h3 className="text-2xl mb-[6px]">Alcoholic Vodka</h3>
+              <p className="text-tertiary">
+                Redesign of pricing, paywalls and user account. Lorem ipsum,
+                dolor sit amet consectetur adipisicing elit. Dolorem, placeat
+              </p>
+            </div>
+            <div className="mb-2">
+              <h4 className="px-[10px] py-[5px] rounded-xl bg-[#DAA6FF] font-bold inline-block">
+                Development
+              </h4>
+            </div>
+          </div>
+        </div>
+        <div className="thisiscard flex flex-col">
+          <div className="bg-secondary w-full h-full aspect-square rounded-[20px] flex justify-center items-center relative mb-4">
+            <BsCardImage size={48} />
+          </div>
+          <div className="flex flex-col-reverse justify-between lg:flex-row">
+            <div className="lg:max-w-[75%]">
+              <h3 className="text-2xl mb-[6px]">Alcoholic Vodka</h3>
+              <p className="text-tertiary">
+                Redesign of pricing, paywalls and user account. Lorem ipsum,
+                dolor sit amet consectetur adipisicing elit. Dolorem, placeat
+              </p>
+            </div>
+            <div className="mb-2">
+              <h4 className="px-[10px] py-[5px] rounded-xl bg-[#DAA6FF] font-bold inline-block">
+                Development
+              </h4>
+            </div>
+          </div>
+        </div>
+        {/* <div>2</div>
+        <div>3</div> */}
+      </div>
+
+      <footer className="mb-16 flex flex-col md:flex-row-reverse md:justify-between">
+        <a
+          className="mb-3 inline-block hover:underline"
+          href="mailto:hello@vixniv.com"
+        >
+          hello@vixniv.com
+        </a>
+        <h4>LinkedIn — Twitter — Dribbble — Github — v1.0.1 © 2022</h4>
+      </footer>
     </div>
   );
 }
