@@ -3,12 +3,31 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import { BsCardImage } from "react-icons/bs";
+import { homedata } from "../data/homedata";
 
 export default function Home() {
   const [activeLink, setActiveLink] = useState("All Work");
+  const [homeData, setHomeData] = useState(homedata);
 
   const activeLinkHandler = (e) => {
     setActiveLink(e.target.textContent);
+  };
+
+  const hiddenHandler = (e) => {
+    setHomeData((prev) => {
+      let temp = [];
+      prev.map((item) => {
+        if (e.target.textContent === "All Work") {
+          temp = [...temp, { ...item, isHidden: false }];
+        } else if (item.type !== e.target.textContent) {
+          temp = [...temp, { ...item, isHidden: true }];
+        } else {
+          temp = [...temp, { ...item, isHidden: false }];
+        }
+      });
+
+      return temp;
+    });
   };
 
   return (
@@ -34,8 +53,6 @@ export default function Home() {
             <Image
               src="/vixnivpp.jpg"
               alt="Profile Picture"
-              width="100%"
-              height="100%"
               layout="fill"
               objectFit="contain"
               className="rounded-full"
@@ -57,7 +74,10 @@ export default function Home() {
             className={`navlink mr-3 ${
               activeLink == "All Work" ? "bg-primary" : ""
             }`}
-            onClick={activeLinkHandler}
+            onClick={(e) => {
+              activeLinkHandler(e);
+              hiddenHandler(e);
+            }}
           >
             All Work
           </li>
@@ -65,7 +85,10 @@ export default function Home() {
             className={`navlink mr-3 ${
               activeLink == "Design" ? "bg-primary" : ""
             }`}
-            onClick={activeLinkHandler}
+            onClick={(e) => {
+              activeLinkHandler(e);
+              hiddenHandler(e);
+            }}
           >
             Design
           </li>
@@ -73,7 +96,10 @@ export default function Home() {
             className={`navlink ${
               activeLink == "Development" ? "bg-primary" : ""
             }`}
-            onClick={activeLinkHandler}
+            onClick={(e) => {
+              activeLinkHandler(e);
+              hiddenHandler(e);
+            }}
           >
             Development
           </li>
@@ -81,94 +107,79 @@ export default function Home() {
       </div>
 
       <div className="thisiswork grid grid-cols-1 gap-y-10 gap-x-8 mb-60 sm:grid-cols-2 md:grid-cols-3">
-        <div className="thisiscard flex flex-col">
-          <div className="bg-secondary w-full h-full aspect-square rounded-[20px] flex justify-center items-center relative mb-4">
-            <BsCardImage size={48} />
-          </div>
-          <div className="flex flex-col-reverse justify-between lg:flex-row">
-            <div className="lg:max-w-[75%]">
-              <h3 className="text-2xl mb-[6px]">Alcoholic Vodka</h3>
-              <p className="text-tertiary">
-                Redesign of pricing, paywalls and user account. Lorem ipsum,
-                dolor sit amet consectetur adipisicing elit. Dolorem, placeat
-              </p>
-            </div>
-            <div className="mb-2">
-              <h4 className="px-[10px] py-[5px] rounded-xl bg-[#DAA6FF] font-bold inline-block">
-                Development
-              </h4>
-            </div>
-          </div>
-        </div>
-        <div className="thisiscard flex flex-col">
-          <div className="bg-secondary w-full h-full aspect-square rounded-[20px] flex justify-center items-center relative mb-4">
-            <BsCardImage size={48} />
-          </div>
-          <div className="flex flex-col-reverse justify-between lg:flex-row">
-            <div className="lg:max-w-[75%]">
-              <h3 className="text-2xl mb-[6px]">Alcoholic Vodka</h3>
-              <p className="text-tertiary">
-                Redesign of pricing, paywalls and user account. Lorem ipsum,
-                dolor sit amet consectetur adipisicing elit. Dolorem, placeat
-              </p>
-            </div>
-            <div className="mb-2">
-              <h4 className="px-[10px] py-[5px] rounded-xl bg-[#DAA6FF] font-bold inline-block">
-                Development
-              </h4>
-            </div>
-          </div>
-        </div>
-        <div className="thisiscard flex flex-col">
-          <div className="bg-secondary w-full h-full aspect-square rounded-[20px] flex justify-center items-center relative mb-4">
-            <BsCardImage size={48} />
-          </div>
-          <div className="flex flex-col-reverse justify-between lg:flex-row">
-            <div className="lg:max-w-[75%]">
-              <h3 className="text-2xl mb-[6px]">Alcoholic Vodka</h3>
-              <p className="text-tertiary">
-                Redesign of pricing, paywalls and user account. Lorem ipsum,
-                dolor sit amet consectetur adipisicing elit. Dolorem, placeat
-              </p>
-            </div>
-            <div className="mb-2">
-              <h4 className="px-[10px] py-[5px] rounded-xl bg-[#DAA6FF] font-bold inline-block">
-                Development
-              </h4>
+        {homeData.map((item) => (
+          <div
+            className={`thisiscard flex flex-col ${
+              item.isHidden ? "hidden" : ""
+            }`}
+            key={item.id}
+          >
+            <Link href={item.url}>
+              <div className="bg-secondary w-full h-full aspect-square rounded-[20px] flex justify-center items-center relative mb-4 cursor-pointer duration-300 hover:brightness-90">
+                {item.image ? (
+                  <Image
+                    src={item.image}
+                    alt="Profile Picture"
+                    layout="fill"
+                    className="rounded-[20px]"
+                  />
+                ) : (
+                  item.icon
+                  // <BsCardImage size={48} />
+                )}
+              </div>
+            </Link>
+            <div className="flex flex-col-reverse justify-between lg:flex-row">
+              <div className="lg:max-w-[75%]">
+                <Link href={item.url}>
+                  <h3 className="text-2xl mb-[6px] cursor-pointer">
+                    {item.title}
+                  </h3>
+                </Link>
+                <p className="text-tertiary">{item.desc}</p>
+              </div>
+              <div className="mb-2">
+                <h4
+                  className={`px-[10px] py-[5px] rounded-xl font-bold inline-block ${
+                    item.type === "Development"
+                      ? "bg-[#DAA6FF]"
+                      : "bg-[#C0EEFF]"
+                  }`}
+                >
+                  {item.type}
+                </h4>
+              </div>
             </div>
           </div>
-        </div>
-        <div className="thisiscard flex flex-col">
-          <div className="bg-secondary w-full h-full aspect-square rounded-[20px] flex justify-center items-center relative mb-4">
-            <BsCardImage size={48} />
-          </div>
-          <div className="flex flex-col-reverse justify-between lg:flex-row">
-            <div className="lg:max-w-[75%]">
-              <h3 className="text-2xl mb-[6px]">Alcoholic Vodka</h3>
-              <p className="text-tertiary">
-                Redesign of pricing, paywalls and user account. Lorem ipsum,
-                dolor sit amet consectetur adipisicing elit. Dolorem, placeat
-              </p>
-            </div>
-            <div className="mb-2">
-              <h4 className="px-[10px] py-[5px] rounded-xl bg-[#DAA6FF] font-bold inline-block">
-                Development
-              </h4>
-            </div>
-          </div>
-        </div>
-        {/* <div>2</div>
-        <div>3</div> */}
+        ))}
       </div>
 
       <footer className="mb-16 flex flex-col md:flex-row-reverse md:justify-between">
-        <a
-          className="mb-3 inline-block hover:underline"
-          href="mailto:hello@vixniv.com"
-        >
-          hello@vixniv.com
-        </a>
-        <h4>LinkedIn — Twitter — Dribbble — Github — v1.0.1 © 2022</h4>
+        <div className="mb-3">
+          <a className="hover:underline" href="mailto:hello@vixniv.com">
+            hello@vixniv.com
+          </a>
+        </div>
+        <h4>
+          <a
+            href="https://linkedin.com/in/arasyyoram"
+            target="_blank"
+            rel="noreferrer"
+            className="hover:underline"
+          >
+            LinkedIn
+          </a>{" "}
+          —{" "}
+          <a
+            href="https://twitter.com/vixniv"
+            target="_blank"
+            rel="noreferrer"
+            className="hover:underline"
+          >
+            Twitter
+          </a>{" "}
+          — v1.0.1 © 2022
+        </h4>
       </footer>
     </div>
   );
