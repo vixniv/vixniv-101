@@ -2,7 +2,7 @@ import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
-import { BsCardImage } from "react-icons/Bs";
+import { BsCardImage } from "react-icons/bs";
 
 export default function Home() {
   const [activeLink, setActiveLink] = useState("All Work");
