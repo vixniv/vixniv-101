@@ -14,8 +14,25 @@ module.exports = {
     extend: {
       fontFamily: {
         title: ["Space Mono", "monospace"],
+        desc: ["Inter", "sans-serif"],
+      },
+      typography: {
+        DEFAULT: {
+          css: {
+            color: "#01020F",
+            h2: {
+              color: "#01020F",
+            },
+            h3: {
+              color: "#01020F",
+            },
+            h4: {
+              color: "#01020F",
+            },
+          },
+        },
       },
     },
   },
-  plugins: [],
+  plugins: [require("@tailwindcss/typography")],
 };

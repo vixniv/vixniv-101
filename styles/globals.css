@@ -11,11 +11,23 @@
   h2,h3 {
   font-family: 'Space Mono', monospace;
   }
+
+  .thisisbody h2 {
+  @apply text-2xl mb-2 mt-8
+  }
+
+  .thisisbody p {
+  @apply mb-4
+  }
 }
 
 @layer components {
   .navlink {
     @apply px-[10px] py-[5px] rounded-xl cursor-pointer border-2 border-primary hover:bg-primary
+  }
+
+  .layout {
+  @apply container mx-auto px-7 sm:px-0
   }
 }
 
