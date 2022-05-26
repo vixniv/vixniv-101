@@ -52,3 +52,19 @@ a {
 * {
   box-sizing: border-box;
 }
+
+/* .imageContainer {
+  width: 100%;
+  margin-top: 32px;
+} */
+
+.imageContainer > span {
+  position: unset !important;
+}
+
+.image {
+  object-fit: contain;
+  width: 100% !important;
+  position: relative !important;
+  height: unset !important;
+}

@@ -7,12 +7,45 @@ import Head from "next/head";
 import Image from "next/image";
 import { RiArrowGoBackLine } from "react-icons/ri";
 import Footer from "../../components/footer";
+import ReactMarkdown from "react-markdown";
 
 const Work = ({
   frontmatter: { title, desc, cover_image, role, timeline, team, type, icon },
   content,
   slug,
 }) => {
+  const components = {
+    img: (props) => {
+      console.log(props);
+      return (
+        <div className="imageContainer w-full mt-8">
+          <Image
+            src={props.src}
+            alt={props.alt}
+            layout="fill"
+            className="image"
+          />
+        </div>
+      );
+    },
+    p: (props) => {
+      if (props.node.children[0].tagName === "img") {
+        const image = props.node.children[0].properties;
+        return (
+          <div className="imageContainer w-full mt-8">
+            <Image
+              src={image.src}
+              alt={image.alt}
+              layout="fill"
+              className="image"
+            />
+          </div>
+        );
+      }
+      return <p>{props.children}</p>;
+    },
+  };
+
   return (
     <section className="layout">
       <Head>
@@ -85,7 +118,8 @@ const Work = ({
       </div>
 
       <div className="prose max-w-none thisisbody sm:w-[70%] mb-60">
-        <div dangerouslySetInnerHTML={{ __html: marked(content) }}></div>
+        {/* <div dangerouslySetInnerHTML={{ __html: marked(content) }}></div> */}
+        <ReactMarkdown components={components}>{content}</ReactMarkdown>
       </div>
 
       <Footer />

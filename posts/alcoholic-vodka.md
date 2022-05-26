@@ -39,3 +39,7 @@ git commit
 ```
 
 ![The San Juan Mountains are beautiful!](/gunung.jpg "San Juan Mountains")
+
+## Problem and goal
+
+Search in Outlook mobile web was a rudimentary and disjointed experience. Typing on phones is hard, and our old search made users do all the work. How might we make search faster, unified yet contextual so people can easily find what they're looking for.
