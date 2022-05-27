@@ -1,14 +1,15 @@
 ---
 id: 2
 type: "Design"
-icon: ""
 image: "/vixnivpp.jpg"
 cover_image: "/vixnivpp.jpg"
-date: "26 May 2022"
-url: "/Alcoholic Vodka"
+date: "27 May 2022"
 isHidden: false
 title: "Alcoholic Vodka 1"
 desc: "Redesign of pricing, paywalls and user account. Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dolorem, placeat"
+role: "Frontend Engineer, designing the feature end-to-end, working closely with engineering to craft video experiences in detail."
+timeline: "October 2021 - March 2022; Rolling out, launched in Germany"
+team: "Solo designer, with guidance from a Lead designer, 1 Content Designer, 1 Product Manager, 7+ engineers."
 ---
 
 ## Heading Two

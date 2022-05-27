@@ -2,28 +2,40 @@ import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
-import { BsCardImage } from "react-icons/bs";
 import Footer from "../components/footer";
-import { homedata } from "../data/homedata";
+import fs from "fs";
+import path from "path";
+import matter from "gray-matter";
+import CustomLink from "../utils/customLink";
+import { sortByDate } from "../utils/sorting";
 
-export default function Home() {
+export default function Home({ posts }) {
   const [activeLink, setActiveLink] = useState("All Work");
-  const [homeData, setHomeData] = useState(homedata);
+  const [newHomeData, setNewHomeData] = useState(posts);
 
   const activeLinkHandler = (e) => {
     setActiveLink(e.target.textContent);
   };
 
   const hiddenHandler = (e) => {
-    setHomeData((prev) => {
+    setNewHomeData((prev) => {
       let temp = [];
       prev.map((item) => {
         if (e.target.textContent === "All Work") {
-          temp = [...temp, { ...item, isHidden: false }];
-        } else if (item.type !== e.target.textContent) {
-          temp = [...temp, { ...item, isHidden: true }];
+          temp = [
+            ...temp,
+            { ...item, frontmatter: { ...item.frontmatter, isHidden: false } },
+          ];
+        } else if (item.frontmatter.type !== e.target.textContent) {
+          temp = [
+            ...temp,
+            { ...item, frontmatter: { ...item.frontmatter, isHidden: true } },
+          ];
         } else {
-          temp = [...temp, { ...item, isHidden: false }];
+          temp = [
+            ...temp,
+            { ...item, frontmatter: { ...item.frontmatter, isHidden: false } },
+          ];
         }
       });
 
@@ -107,46 +119,47 @@ export default function Home() {
       </div>
 
       <div className="thisiswork grid grid-cols-1 gap-y-10 gap-x-8 mb-60 sm:grid-cols-2 md:grid-cols-3">
-        {homeData.map((item) => (
+        {newHomeData.map((item) => (
           <div
             className={`thisiscard flex flex-col ${
-              item.isHidden ? "hidden" : ""
+              item.frontmatter.isHidden ? "hidden" : ""
             }`}
-            key={item.id}
+            key={item.frontmatter.date}
           >
-            <Link href={`/work/${item.url}`}>
-              <div className="bg-secondary w-full h-full aspect-square rounded-[20px] flex justify-center items-center relative mb-4 cursor-pointer duration-300 hover:brightness-90">
-                {item.image ? (
-                  <Image
-                    src={item.image}
-                    alt="Profile Picture"
-                    layout="fill"
-                    className="rounded-[20px]"
-                  />
-                ) : (
-                  item.icon
-                  // <BsCardImage size={48} />
-                )}
+            <CustomLink
+              slug={item.slug}
+              external_url={item.frontmatter.external_url}
+            >
+              <div className="bg-secondary w-full h-auto aspect-square rounded-[20px] flex justify-center items-center relative mb-4 cursor-pointer duration-300 hover:brightness-90">
+                <Image
+                  src={item.frontmatter.image}
+                  alt="Profile Picture"
+                  layout="fill"
+                  className="rounded-[20px]"
+                />
               </div>
-            </Link>
+            </CustomLink>
             <div className="flex flex-col-reverse justify-between lg:flex-row">
               <div className="lg:max-w-[75%]">
-                <Link href={item.url}>
+                <CustomLink
+                  slug={item.slug}
+                  external_url={item.frontmatter.external_url}
+                >
                   <h3 className="text-2xl mb-[6px] cursor-pointer">
-                    {item.title}
+                    {item.frontmatter.title}
                   </h3>
-                </Link>
-                <p className="text-tertiary">{item.desc}</p>
+                </CustomLink>
+                <p className="text-tertiary">{item.frontmatter.desc}</p>
               </div>
               <div className="mb-2">
                 <h4
                   className={`px-[10px] py-[5px] rounded-xl font-bold inline-block ${
-                    item.type === "Development"
+                    item.frontmatter.type === "Development"
                       ? "bg-[#DAA6FF]"
                       : "bg-[#C0EEFF]"
                   }`}
                 >
-                  {item.type}
+                  {item.frontmatter.type}
                 </h4>
               </div>
             </div>
@@ -157,4 +170,28 @@ export default function Home() {
       <Footer />
     </div>
   );
+}
+
+export async function getStaticProps() {
+  const files = fs.readdirSync(path.join("posts"));
+
+  const posts = files.map((filename) => {
+    const slug = filename.replace(".md", "");
+
+    const markdownWithMeta = fs.readFileSync(
+      path.join("posts", filename),
+      "utf-8"
+    );
+
+    const { data: frontmatter } = matter(markdownWithMeta);
+
+    return {
+      slug,
+      frontmatter,
+    };
+  });
+
+  return {
+    props: { posts: posts.sort(sortByDate) },
+  };
 }
