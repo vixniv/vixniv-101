@@ -1,7 +1,6 @@
 import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
-import { marked } from "marked";
 import Link from "next/link";
 import Head from "next/head";
 import Image from "next/image";
@@ -44,6 +43,13 @@ const Work = ({
       }
       return <p>{props.children}</p>;
     },
+  };
+
+  const goToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
   };
 
   return (
@@ -120,6 +126,15 @@ const Work = ({
       <div className="prose max-w-none thisisbody sm:w-[70%] mb-60">
         {/* <div dangerouslySetInnerHTML={{ __html: marked(content) }}></div> */}
         <ReactMarkdown components={components}>{content}</ReactMarkdown>
+      </div>
+
+      <div
+        className="flex justify-end mb-5 sm:justify-center"
+        onClick={goToTop}
+      >
+        <p className="px-[10px] py-[5px] rounded-xl bg-secondary cursor-pointer inline-block hover:bg-primary">
+          Back to top
+        </p>
       </div>
 
       <Footer />

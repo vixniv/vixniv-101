@@ -195,3 +195,12 @@ export async function getStaticProps() {
     props: { posts: posts.sort(sortByDate) },
   };
 }
+
+// MUST:
+// add proper work content
+// restructuring the code
+// add about page
+
+// GOOD TO HAVE:
+// on detail work, add next previous work
+// archive feature
