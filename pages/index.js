@@ -8,6 +8,7 @@ import path from "path";
 import matter from "gray-matter";
 import CustomLink from "../utils/customLink";
 import { sortByDate } from "../utils/sorting";
+import { HiExternalLink } from "react-icons/hi";
 
 export default function Home({ posts }) {
   const [activeLink, setActiveLink] = useState("All Work");
@@ -147,6 +148,9 @@ export default function Home({ posts }) {
                 >
                   <h3 className="text-2xl mb-[6px] cursor-pointer">
                     {item.frontmatter.title}
+                    {item.frontmatter.external_url && (
+                      <HiExternalLink className="inline-block pb-1" />
+                    )}
                   </h3>
                 </CustomLink>
                 <p className="text-tertiary">{item.frontmatter.desc}</p>

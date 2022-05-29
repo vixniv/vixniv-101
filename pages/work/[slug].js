@@ -9,7 +9,7 @@ import Footer from "../../components/footer";
 import ReactMarkdown from "react-markdown";
 
 const Work = ({
-  frontmatter: { title, desc, cover_image, role, timeline, team, type, icon },
+  frontmatter: { title, desc, cover_image, role, timeline, team, type },
   content,
   slug,
 }) => {
@@ -82,13 +82,15 @@ const Work = ({
         </div>
 
         <div className="bg-secondary w-full pt-[37.5%] relative rounded-[20px] mb-8">
-          <Image
-            src={cover_image}
-            alt="Profile Picture"
-            layout="fill"
-            objectFit="cover"
-            className="rounded-[20px]"
-          />
+          {cover_image && (
+            <Image
+              src={cover_image}
+              alt="Profile Picture"
+              layout="fill"
+              objectFit="cover"
+              className="rounded-[20px]"
+            />
+          )}
         </div>
         {/* <div>
           <div className="bg-secondary w-full h-[482px] rounded-[20px] flex justify-center items-center relative mb-4">
