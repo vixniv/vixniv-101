@@ -58,7 +58,7 @@ const Work = ({
         <title>{title}</title>
         <meta name="description" content={desc} />
       </Head>
-      <div className="thisisheader mb-8">
+      <div className="thisisheader mb-24">
         <div className="mt-14 mb-8">
           <Link href="/">
             <a className="text-sm font-title px-[10px] py-[5px] mt-2 rounded-xl bg-secondary cursor-pointer hover:bg-primary">
@@ -125,7 +125,7 @@ const Work = ({
         </div>
       </div>
 
-      <div className="prose max-w-none thisisbody sm:w-[70%] mb-60">
+      <div className="prose max-w-none thisisbody sm:w-[70%] mb-60 m-auto">
         {/* <div dangerouslySetInnerHTML={{ __html: marked(content) }}></div> */}
         <ReactMarkdown components={components}>{content}</ReactMarkdown>
       </div>
