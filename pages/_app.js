@@ -1,5 +1,6 @@
 import Head from "next/head";
 import "../styles/globals.css";
+import { CustomProvider } from "../utils/Context";
 
 function MyApp({ Component, pageProps }) {
   return (
@@ -7,7 +8,9 @@ function MyApp({ Component, pageProps }) {
       <Head>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
-      <Component {...pageProps} />
+      <CustomProvider>
+        <Component {...pageProps} />
+      </CustomProvider>
     </>
   );
 }

@@ -60,7 +60,7 @@ const Work = ({
       </Head>
       <div className="thisisheader mb-24">
         <div className="mt-14 mb-8">
-          <Link href="/">
+          <Link href="/" scroll={false}>
             <a className="text-sm font-title px-[10px] py-[5px] mt-2 rounded-xl bg-secondary cursor-pointer hover:bg-primary">
               <RiArrowGoBackLine className="inline" size={16} /> Back to home
             </a>

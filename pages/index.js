@@ -1,7 +1,7 @@
 import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect } from "react";
 import Footer from "../components/footer";
 import fs from "fs";
 import path from "path";
@@ -9,17 +9,33 @@ import matter from "gray-matter";
 import CustomLink from "../utils/customLink";
 import { sortByDate } from "../utils/sorting";
 import { HiExternalLink } from "react-icons/hi";
+import { useScrollPos, useActiveLink, useWorkData } from "../utils/Context";
 
 export default function Home({ posts }) {
-  const [activeLink, setActiveLink] = useState("All Work");
-  const [newHomeData, setNewHomeData] = useState(posts);
+  // const [activeLink, setActiveLink] = useState("All Work");
+  // const [newHomeData, setNewHomeData] = useState(posts);
+  const { scrollPos, setScrollPos } = useScrollPos();
+  const { activeLink, setActiveLink } = useActiveLink();
+  const { workData, setWorkData } = useWorkData();
+
+  useEffect(() => {
+    if (scrollPos) {
+      window.scrollTo(0, scrollPos);
+    }
+  }, [scrollPos]);
+
+  useEffect(() => {
+    if (workData.length === 0) {
+      setWorkData(posts);
+    }
+  }, [posts, setWorkData, workData.length]);
 
   const activeLinkHandler = (e) => {
     setActiveLink(e.target.textContent);
   };
 
   const hiddenHandler = (e) => {
-    setNewHomeData((prev) => {
+    setWorkData((prev) => {
       let temp = [];
       prev.map((item) => {
         if (e.target.textContent === "All Work") {
@@ -76,7 +92,10 @@ export default function Home({ posts }) {
           </div>
           <div>
             <Link href="/about">
-              <a className="px-[10px] py-[5px] rounded-xl hover:bg-secondary">
+              <a
+                className="px-[10px] py-[5px] rounded-xl hover:bg-secondary"
+                onClick={() => setScrollPos(window.scrollY)}
+              >
                 About me
               </a>
             </Link>
@@ -123,7 +142,7 @@ export default function Home({ posts }) {
       </div>
 
       <div className="thisiswork grid grid-cols-1 gap-y-10 gap-x-8 mb-60 sm:grid-cols-2 md:grid-cols-3">
-        {newHomeData.map((item) => (
+        {workData.map((item) => (
           <div
             className={`thisiscard flex flex-col ${
               item.frontmatter.isHidden ? "hidden" : ""
@@ -204,7 +223,7 @@ export async function getStaticProps() {
 }
 
 // MUST:
-// add proper work content
+// add proper work content v
 // restructuring the code
 // add about page
 
