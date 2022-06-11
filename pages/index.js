@@ -153,7 +153,7 @@ export default function Home({ posts }) {
               slug={item.slug}
               external_url={item.frontmatter.external_url}
             >
-              <div className="bg-secondary w-full h-auto aspect-square rounded-[20px] flex justify-center items-center relative mb-4 cursor-pointer duration-300 hover:brightness-90">
+              <div className="bg-secondary w-full h-auto pt-[100%] rounded-[20px] flex justify-center items-center relative mb-4 cursor-pointer duration-300 hover:brightness-90">
                 <Image
                   src={item.frontmatter.image}
                   alt="Profile Picture"
