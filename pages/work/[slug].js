@@ -109,7 +109,7 @@ const Work = ({
           </div>
         </div> */}
 
-        <div className="flex flex-col gap-y-6 sm:flex-row sm:gap-x-16 lg:gap-x-24">
+        <div className="flex flex-col space-y-6 sm:space-y-0 sm:flex-row sm:space-x-16 lg:space-x-24">
           <div className="sm:w-1/4">
             <h3 className="text-2xl mb-2">Role</h3>
             <p className="text-tertiary">{role}</p>
